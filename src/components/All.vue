@@ -5,6 +5,10 @@
         :class="{ to_do: to_do, to_do2: to_do2 }"
         v-for="(Todo, index) in filteredTodos"
         :key="index"
+        draggable="true"
+        @dragstart="dragStart(index)"
+        @dragover.prevent
+        @drop="drop(index)"
       >
         <span class="todo-span">
           <div class="checkbox_style">
@@ -97,6 +101,20 @@ export default {
     },
     fClear() {
       this.$emit("clear-completed");
+    },
+
+    dragStart(index) {
+      this.draggedItemIndex = index; // Store the index of the dragged item
+    },
+
+    drop(targetIndex) {
+      // Ensure the target index is not the same as the dragged index
+      if (targetIndex !== this.draggedItemIndex) {
+        // Splice the item from its current position and insert it at the target index
+        const draggedItem = this.filteredTodos.splice(this.draggedItemIndex, 1)[0];
+        this.filteredTodos.splice(targetIndex, 0, draggedItem);
+        this.draggedItemIndex = null; // Reset the draggedItemIndex
+      }
     },
   },
 };
