@@ -2,7 +2,7 @@
   <div class="main">
     <div :class="{ changebg: changebg, bg1: bg1 }">
       <span class="todo">TODO</span>
-      <span @click="change()"> <img :src="'./assets/' + Image" alt="image" /> </span>
+      <span @click="change()"> <img :src="Image" alt="image" /> </span>
     </div>
     <div :class="{ bg2: bg2, changebg2: changebg2 }">
       <div class="todos">
@@ -39,6 +39,8 @@
             :to_do2="to_do2"
             :task1="task1"
             :task2="task2"
+            :footer1="footer1"
+            :footer2="footer2"
             @clear-completed="clearCompletedTodos"
           />
         </div>
@@ -62,13 +64,15 @@ export default {
       bg2: true,
       tasks2: false,
       tasks: true,
-      Image: "icon-sun.svg",
+      Image: require("./assets/icon-sun.svg"),
       input: true,
       input2: false,
       to_do: true,
       to_do2: false,
       task1: true,
       task2: false,
+      footer1: true,
+      footer2: false,
     };
   },
   components: { All },
@@ -99,6 +103,12 @@ export default {
       this.to_do2 = !this.to_do2;
       this.task1 = !this.task1;
       this.task2 = !this.task2;
+      this.footer1 = !this.footer1;
+      this.footer2 = !this.footer2;
+      this.Image =
+        this.Image === require("./assets/icon-sun.svg")
+          ? require("./assets/icon-moon.svg")
+          : require("./assets/icon-sun.svg");
     },
     clearCompletedTodos() {
       this.Todos = this.Todos.filter((todo) => !todo.completed);
@@ -106,11 +116,58 @@ export default {
   },
 };
 </script>
-
 <style>
+@media (max-width: 375px) {
+  .footer1 {
+    display: flex;
+    gap: 15px;
+    position: relative;
+    top: 30px;
+    border-radius: 10px;
+    background-color: hsl(235, 24%, 19%);
+    width: 200px;
+    padding: 10px;
+    justify-content: center;
+    left: 7px;
+  }
+  .footer2 {
+    display: flex;
+    gap: 15px;
+    position: relative;
+    top: 30px;
+    border-radius: 10px;
+    background-color: hsl(0, 0%, 98%);
+    width: 200px;
+    padding: 10px;
+    justify-content: center;
+    left: 7px;
+  }
+  .footer {
+    gap: 0px;
+  }
+  .f_clear {
+    position: relative;
+    left: -10px;
+  }
+  .f_items {
+    position: relative;
+    left: 13px;
+  }
+  .bg11 {
+    left: 30px;
+  }
+  .changebg {
+    gap: 190px !important;
+  }
+  .bg1 {
+    gap: 190px !important;
+  }
+}
 * {
   box-sizing: border-box;
   margin: 0;
+  transition: 0.5s;
+  font-family: "Josefin Sans", sans-serif;
 }
 .input2 {
   width: 220px;
@@ -142,7 +199,7 @@ export default {
 }
 .tasks {
   border-radius: 10px;
-  background-color: hsl(235, 21%, 11%);
+  background-color: hsl(235, 24%, 19%);
   width: 300px;
   padding: 5px;
 }
@@ -168,7 +225,7 @@ export default {
   background-image: url(./assets/bg-desktop-dark.jpg);
 }
 .bg2 {
-  background-color: hsl(235, 24%, 19%);
+  background-color: hsl(235, 21%, 11%);
   width: 100%;
   height: 100%;
 }
@@ -284,20 +341,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-@media (max-width: 768px) {
-  .main {
-    padding: 10px;
-  }
-
-  .changebg,
-  .todo {
-    font-size: 18px;
-  }
-
-  .tasks,
-  .tasks2 {
-    padding: 10px;
-  }
 }
 </style>

@@ -34,8 +34,8 @@
       </div>
     </div>
     <div class="footer">
-      <div>{{ filteredTodos.length }} items left</div>
-      <div class="footer1">
+      <div class="f_items">{{ filteredTodos.length }} items left</div>
+      <div :class="{ footer1: footer1, footer2: footer2 }">
         <div
           class="f_all"
           @click="fAll()"
@@ -67,7 +67,17 @@
 
 <script>
 export default {
-  props: ["Todos", "check", "Task", "to_do", "to_do2", "task1", "task2"],
+  props: [
+    "Todos",
+    "check",
+    "Task",
+    "to_do",
+    "to_do2",
+    "task1",
+    "task2",
+    "footer1",
+    "footer2",
+  ],
   data() {
     return {
       filteredTodos: this.Todos,
@@ -133,7 +143,8 @@ export default {
 .f_clear:hover {
   color: hsl(236, 33%, 92%);
 }
-.footer1 {
+.footer1,
+.footer2 {
   display: flex;
   gap: 5px;
 }
@@ -187,7 +198,7 @@ export default {
 }
 .to_do {
   border-radius: 10px;
-  background-color: hsl(235, 21%, 11%);
+  background-color: hsl(235, 24%, 19%);
   width: 300px;
   text-align: left;
   padding-bottom: 5px;
