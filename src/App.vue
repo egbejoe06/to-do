@@ -79,40 +79,48 @@ export default {
   methods: {
     addtask2() {
       if (this.check == false && this.Task) {
-        this.Todos.push({ taask: this.Task, isChecked: false, completed: false });
+        const taskExists = this.Todos.some((todo) => todo.taask === this.Task);
+
+        if (!taskExists) {
+          this.Todos.push({ taask: this.Task, isChecked: false, completed: false });
+        }
         this.Task = "";
       }
     },
     addtask() {
       if (this.check == false && this.Task) {
-        this.Todos.push({ taask: this.Task, isChecked: false, completed: false });
+        const taskExists = this.Todos.some((todo) => todo.taask === this.Task);
+
+        if (!taskExists) {
+          this.Todos.push({ taask: this.Task, isChecked: false, completed: false });
+        }
         this.Task = "";
-        this.check = true;
       }
+      this.check = true;
     },
-    change() {
-      this.changebg = !this.changebg;
-      this.bg1 = !this.bg1;
-      this.changebg2 = !this.changebg2;
-      this.bg2 = !this.bg2;
-      this.tasks = !this.tasks;
-      this.tasks2 = !this.tasks2;
-      this.input = !this.input;
-      this.input2 = !this.input2;
-      this.to_do = !this.to_do;
-      this.to_do2 = !this.to_do2;
-      this.task1 = !this.task1;
-      this.task2 = !this.task2;
-      this.footer1 = !this.footer1;
-      this.footer2 = !this.footer2;
-      this.Image =
-        this.Image === require("./assets/icon-sun.svg")
-          ? require("./assets/icon-moon.svg")
-          : require("./assets/icon-sun.svg");
-    },
-    clearCompletedTodos() {
-      this.Todos = this.Todos.filter((todo) => !todo.completed);
-    },
+  },
+  change() {
+    this.changebg = !this.changebg;
+    this.bg1 = !this.bg1;
+    this.changebg2 = !this.changebg2;
+    this.bg2 = !this.bg2;
+    this.tasks = !this.tasks;
+    this.tasks2 = !this.tasks2;
+    this.input = !this.input;
+    this.input2 = !this.input2;
+    this.to_do = !this.to_do;
+    this.to_do2 = !this.to_do2;
+    this.task1 = !this.task1;
+    this.task2 = !this.task2;
+    this.footer1 = !this.footer1;
+    this.footer2 = !this.footer2;
+    this.Image =
+      this.Image === require("./assets/icon-sun.svg")
+        ? require("./assets/icon-moon.svg")
+        : require("./assets/icon-sun.svg");
+  },
+  clearCompletedTodos() {
+    this.Todos = this.Todos.filter((todo) => !todo.completed);
   },
 };
 </script>
